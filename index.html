@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>人生罗盘：核心价值观探索测试</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+        
+        .intro {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .intro p {
+            margin-bottom: 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+        
+        .btn:active {
+            transform: translateY(1px);
+        }
+        
+        .btn-center {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .question-container {
+            display: none;
+        }
+        
+        .question {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+        
+        .question-number {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .option {
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: white;
+        }
+        
+        .option:hover {
+            border-color: #3498db;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .option.selected {
+            border-color: #3498db;
+            background: rgba(52, 152, 219, 0.05);
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: #3498db;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .results-container {
+            display: none;
+        }
+        
+        .result-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f8f9fa;
+            position: relative;
+        }
+        
+        .section-icon {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+        }
+        
+        .result-section h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .dimension {
+            margin-bottom: 20px;
+        }
+        
+        .dimension-title {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .dimension-bar {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .dimension-value {
+            height: 100%;
+            border-radius: 5px;
+        }
+        
+        .dimension-explanation {
+            font-size: 13px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .contradiction {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        
+        .strength {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .career {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .growth {
+            background: #e2e3e5;
+            border-left: 4px solid #6c757d;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .score-explanation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        
+        .score-level {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+        
+        .low { background: #f8d7da; color: #721c24; }
+        .medium { background: #fff3cd; color: #856404; }
+        .high { background: #d1edbf; color: #2d5016; }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .option {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>人生罗盘：核心价值观探索测试</h1>
+            <p class="subtitle">通过28次关键选择，发现你内心真正看重的是什么</p>
+        </header>
+        
+        <div class="intro">
+            <p>在我们的生活和工作中，许多选择之所以艰难，并非因为选项是"好"与"坏"，而是因为它们都是"好"的，只是代表了不同的方向。</p>
+            <p>本测试将通过28次"两难"的选择，帮助你澄清内心真正看重的是什么，让你在职业规划和人生决策时，拥有更清晰的"罗盘"。</p>
+            <p><strong>请根据你的第一直觉进行选择，无需过多分析。</strong>想象这两个选项在现实中对你同样具有吸引力，然后问自己："在内心深处，我更偏向哪一个？"</p>
+        </div>
+        
+        <div class="btn-center">
+            <button id="start-btn" class="btn">开始测试</button>
+        </div>
+        
+        <div id="question-container" class="question-container">
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progress" class="progress"></div>
+                </div>
+                <div id="progress-text" class="progress-text">0/28 已完成</div>
+            </div>
+            
+            <div id="question" class="question">
+                <!-- 问题内容将通过JavaScript动态生成 -->
+            </div>
+            
+            <div class="btn-center">
+                <button id="next-btn" class="btn" disabled>下一题</button>
+            </div>
+        </div>
+        
+        <div id="results-container" class="results-container">
+            <h2>你的核心价值观评估结果</h2>
+            
+            <div class="result-section">
+                <div class="section-icon">🧭</div>
+                <h3>总体结论</h3>
+                <div id="overall-conclusion">
+                    <!-- 总体结论将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="section-icon">📊</div>
+                <h3>核心价值观维度分析</h3>
+                <div id="dimensions-analysis">
+                    <!-- 维度分析将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="section-icon">⚖️</div>
+                <h3>一致性评估</h3>
+                <div id="consistency-analysis">
+                    <!-- 一致性分析将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="section-icon">💪</div>
+                <h3>核心优势</h3>
+                <div id="strengths-analysis">
+                    <!-- 优势分析将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="section-icon">🚀</div>
+                <h3>职业发展方向</h3>
+                <div id="career-analysis">
+                    <!-- 职业分析将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="result-section">
+                <div class="section-icon">🌱</div>
+                <h3>成长建议</h3>
+                <div id="growth-analysis">
+                    <!-- 成长建议将通过JavaScript动态生成 -->
+                </div>
+            </div>
+            
+            <div class="btn-center">
+                <button id="restart-btn" class="btn">重新测试</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 测试题目数据
+        const questions = [
+            { id: 1, a: "成就与影响", b: "和谐与归属" },
+            { id: 2, a: "稳定与安全", b: "变化与创新" },
+            { id: 3, a: "独立与自主", b: "指导与引领" },
+            { id: 4, a: "务实与结果", b: "创意与表达" },
+            { id: 5, a: "挑战与征服", b: "平衡与安逸" },
+            { id: 6, a: "认可与声望", b: "智慧与真知" },
+            { id: 7, a: "忠诚与责任", b: "自由与探索" },
+            { id: 8, a: "秩序与规则", b: "关怀与利他" },
+            { id: 9, a: "权力与决策", b: "合作与支持" },
+            { id: 10, a: "积累与保障", b: "体验与过程" },
+            { id: 11, a: "效率与速度", b: "精准与完美" },
+            { id: 12, a: "冒险与机遇", b: "深思与洞察" },
+            { id: 13, a: "传统与延续", b: "进步与革新" },
+            { id: 14, a: "集体成功", b: "个人卓越" },
+            { id: 15, a: "环境和谐", b: "个人享受" },
+            { id: 16, a: "谦逊与内省", b: "自信与表现" },
+            { id: 17, a: "系统与整合", b: "人际与沟通" },
+            { id: 18, a: "坚韧不拔", b: "灵活适应" },
+            { id: 19, a: "公正与公平", b: "怜悯与同情" },
+            { id: 20, a: "宏图与愿景", b: "当下与现实" },
+            { id: 21, a: "传承与影响", b: "自在与平和" },
+            { id: 22, a: "开拓新领域", b: "守护现有成果" },
+            { id: 23, a: "深刻的专精", b: "广泛的连接" },
+            { id: 24, a: "被铭记的遗产", b: "被珍惜的日常" },
+            { id: 25, a: "坚定的原则性", b: "温暖的同理心" },
+            { id: 26, a: "成为关键人物", b: "拥有全部时间" },
+            { id: 27, a: "解决实际问题", b: "探索理论可能" },
+            { id: 28, a: "持续改进优化", b: "全然接纳享受" }
+        ];
+
+        // 定义价值观维度
+        const dimensions = {
+            "成就导向": ["成就与影响", "认可与声望", "挑战与征服", "成为关键人物"],
+            "关系导向": ["和谐与归属", "关怀与利他", "合作与支持", "广泛的连接", "温暖的同理心"],
+            "稳定导向": ["稳定与安全", "秩序与规则", "忠诚与责任", "守护现有成果", "传统与延续"],
+            "成长导向": ["变化与创新", "自由与探索", "进步与革新", "开拓新领域"],
+            "自主导向": ["独立与自主", "自在与平和", "拥有全部时间"],
+            "影响力导向": ["权力与决策", "指导与引领", "传承与影响", "被铭记的遗产", "宏图与愿景"],
+            "实用导向": ["务实与结果", "积累与保障", "效率与速度", "解决实际问题"],
+            "理念导向": ["创意与表达", "智慧与真知", "探索理论可能"],
+            "平衡导向": ["平衡与安逸", "体验与过程", "被珍惜的日常", "当下与现实", "全然接纳享受"],
+            "完美导向": ["精准与完美", "持续改进优化"],
+            "集体导向": ["集体成功", "系统与整合"],
+            "个人导向": ["个人卓越", "深刻的专精", "自信与表现"],
+            "原则导向": ["公正与公平", "坚定的原则性", "坚韧不拔"],
+            "适应导向": ["灵活适应", "深思与洞察", "冒险与机遇", "怜悯与同情"]
+        };
+
+        // 维度解释
+        const dimensionExplanations = {
+            "成就导向": "追求卓越和成功，渴望通过努力达成目标并获得认可",
+            "关系导向": "重视人际和谐与团队合作，在支持他人中找到价值",
+            "稳定导向": "偏好可预测的环境和清晰的路径，注重长期保障",
+            "成长导向": "渴望学习新事物和接受挑战，在变化中寻找意义",
+            "自主导向": "重视独立和自由，希望掌控自己的时间和工作方式",
+            "影响力导向": "希望影响他人和决策过程，追求广泛的社会影响",
+            "实用导向": "关注实际成果和效益，相信行动和实干高于一切",
+            "理念导向": "重视思想的独特性和深度，追求知识与创意表达",
+            "平衡导向": "追求工作与生活的平衡，享受当下的宁静与满足",
+            "完美导向": "对细节一丝不苟，致力于交出完美无瑕的成果",
+            "集体导向": "个人价值在团队或组织成功中实现，集体高于个人",
+            "个人导向": "不断超越自我，在专业领域达到极高的个人造诣",
+            "原则导向": "坚守道德准则和信念，并以此指导行为决策",
+            "适应导向": "能够根据情况调整策略，认为适应力优于固执"
+        };
+
+        // 交叉验证映射
+        const crossValidationMap = {
+            2: [22],  // 稳定vs变化
+            1: [23],  // 成就vs关系
+            21: [24], // 传承vs自在
+            8: [25],  // 秩序vs关怀
+            19: [25], // 公正vs怜悯
+            3: [26],  // 独立vs指导
+            6: [26],  // 认可vs智慧
+            9: [26],  // 权力vs合作
+            21: [26], // 传承vs自在
+            4: [27],  // 务实vs创意
+            6: [27],  // 认可vs智慧
+            5: [28],  // 挑战vs平衡
+            10: [28], // 积累vs体验
+            11: [28], // 效率vs精准
+            13: [28]  // 传统vs进步
+        };
+
+        // 用户答案存储
+        let userAnswers = [];
+        let currentQuestion = 0;
+
+        // DOM元素
+        const startBtn = document.getElementById('start-btn');
+        const questionContainer = document.getElementById('question-container');
+        const resultsContainer = document.getElementById('results-container');
+        const questionElement = document.getElementById('question');
+        const nextBtn = document.getElementById('next-btn');
+        const progressElement = document.getElementById('progress');
+        const progressTextElement = document.getElementById('progress-text');
+        const restartBtn = document.getElementById('restart-btn');
+
+        // 事件监听
+        startBtn.addEventListener('click', startTest);
+        nextBtn.addEventListener('click', nextQuestion);
+        restartBtn.addEventListener('click', restartTest);
+
+        // 开始测试
+        function startTest() {
+            startBtn.style.display = 'none';
+            document.querySelector('.intro').style.display = 'none';
+            questionContainer.style.display = 'block';
+            showQuestion(0);
+        }
+
+        // 显示问题
+        function showQuestion(index) {
+            currentQuestion = index;
+            const question = questions[index];
+            
+            // 更新进度条
+            const progress = ((index) / questions.length) * 100;
+            progressElement.style.width = `${progress}%`;
+            progressTextElement.textContent = `${index}/28 已完成`;
+            
+            // 生成问题HTML
+            questionElement.innerHTML = `
+                <div class="question-number">问题 ${index + 1}/28</div>
+                <div class="options">
+                    <div class="option" data-value="a">${question.a}</div>
+                    <div class="option" data-value="b">${question.b}</div>
+                </div>
+            `;
+            
+            // 添加选项点击事件
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除其他选项的选中状态
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    // 选中当前选项
+                    this.classList.add('selected');
+                    // 启用下一题按钮
+                    nextBtn.disabled = false;
+                    
+                    // 存储答案
+                    userAnswers[index] = this.getAttribute('data-value');
+                });
+            });
+            
+            // 禁用下一题按钮，直到选择答案
+            nextBtn.disabled = true;
+        }
+
+        // 下一题
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                showQuestion(currentQuestion + 1);
+            } else {
+                // 所有问题已回答，显示结果
+                showResults();
+            }
+        }
+
+        // 显示结果
+        function showResults() {
+            questionContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+            
+            // 计算各维度得分
+            const dimensionScores = calculateDimensionScores();
+            
+            // 生成总体结论
+            generateOverallConclusion(dimensionScores);
+            
+            // 生成维度分析
+            generateDimensionAnalysis(dimensionScores);
+            
+            // 生成一致性分析
+            generateConsistencyAnalysis(dimensionScores);
+            
+            // 生成核心优势分析
+            generateStrengthsAnalysis(dimensionScores);
+            
+            // 生成职业发展方向
+            generateCareerAnalysis(dimensionScores);
+            
+            // 生成成长建议
+            generateGrowthAnalysis(dimensionScores);
+        }
+
+        // 计算维度得分
+        function calculateDimensionScores() {
+            const scores = {};
+            
+            // 初始化所有维度分数为0
+            for (const dimension in dimensions) {
+                scores[dimension] = 0;
+            }
+            
+            // 根据用户答案计算分数
+            for (let i = 0; i < userAnswers.length; i++) {
+                const answer = userAnswers[i];
+                const question = questions[i];
+                const selectedValue = answer === 'a' ? question.a : question.b;
+                
+                // 找到选中的值属于哪个维度
+                for (const dimension in dimensions) {
+                    if (dimensions[dimension].includes(selectedValue)) {
+                        scores[dimension]++;
+                        break;
+                    }
+                }
+            }
+            
+            return scores;
+        }
+
+        // 生成总体结论
+        function generateOverallConclusion(scores) {
+            const overallElement = document.getElementById('overall-conclusion');
+            
+            // 找出得分最高的三个维度
+            const topDimensions = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+            
+            // 找出得分最低的三个维度
+            const bottomDimensions = Object.entries(scores)
+                .sort((a, b) => a[1] - b[1])
+                .slice(0, 3);
+            
+            let conclusion = `
+                <p>基于你的选择，你的核心价值观主要集中在 <span class="highlight">${topDimensions[0][0]}</span>、<span class="highlight">${topDimensions[1][0]}</span> 和 <span class="highlight">${topDimensions[2][0]}</span> 这三个维度。</p>
+                <p>从心理学角度看，这意味着你的核心动机主要来源于<strong>${getMotivationDescription(topDimensions[0][0])}</strong>。这种价值观组合表明你是一个<strong>${getPersonalityDescription(topDimensions)}</strong>的人。</p>
+                <p>在现实生活中，这种价值观组合可能表现为：${getLifeManifestation(topDimensions)}</p>
+                <p>同时，你在 <span class="highlight">${bottomDimensions[0][0]}</span>、<span class="highlight">${bottomDimensions[1][0]}</span> 和 <span class="highlight">${bottomDimensions[2][0]}</span> 维度上得分较低，这可能意味着这些价值观在你当前生活中的优先级不高，或者你尚未充分发展这些方面的潜能。</p>
+            `;
+            
+            overallElement.innerHTML = conclusion;
+        }
+
+        // 获取动机描述
+        function getMotivationDescription(dimension) {
+            const descriptions = {
+                "成就导向": "对成功和认可的渴望，驱动你不断设定并达成目标",
+                "关系导向": "对人际和谐与归属感的需求，使你重视团队合作和支持他人",
+                "稳定导向": "对安全感和可预测性的需求，使你偏好有序和稳定的环境",
+                "成长导向": "对学习和变化的渴望，驱动你不断探索新领域和挑战自我",
+                "自主导向": "对独立和自由的需求，使你重视自我掌控和决策权",
+                "影响力导向": "对影响他人和决策的渴望，驱动你追求领导角色和社会影响",
+                "实用导向": "对实际成果和效率的关注，使你重视行动和解决问题的能力",
+                "理念导向": "对知识和创意的追求，驱动你探索思想深度和独特表达",
+                "平衡导向": "对工作生活平衡的需求，使你重视当下的满足和宁静",
+                "完美导向": "对精确和完美的追求，驱动你关注细节和持续改进",
+                "集体导向": "对集体成功的重视，使你愿意为团队目标贡献个人力量",
+                "个人导向": "对个人卓越的追求，驱动你在专业领域不断精进",
+                "原则导向": "对道德准则和信念的坚守，使你以原则指导行为决策",
+                "适应导向": "对灵活性和适应性的重视，使你能够根据情况调整策略"
+            };
+            
+            return descriptions[dimension] || "对个人成长和意义实现的追求";
+        }
+
+        // 获取个性描述
+        function getPersonalityDescription(topDimensions) {
+            const dimNames = topDimensions.map(d => d[0]);
+            
+            if (dimNames.includes("成就导向") && dimNames.includes("影响力导向")) {
+                return "目标明确、有领导潜力、注重结果";
+            } else if (dimNames.includes("关系导向") && dimNames.includes("集体导向")) {
+                return "团队合作者、支持型、重视和谐";
+            } else if (dimNames.includes("稳定导向") && dimNames.includes("实用导向")) {
+                return "务实可靠、注重细节、偏好结构";
+            } else if (dimNames.includes("成长导向") && dimNames.includes("适应导向")) {
+                return "灵活适应、勇于探索、乐于学习";
+            } else if (dimNames.includes("自主导向") && dimNames.includes("个人导向")) {
+                return "独立自主、自我驱动、专注专业";
+            } else if (dimNames.includes("理念导向") && dimNames.includes("完美导向")) {
+                return "深思熟虑、追求卓越、注重品质";
+            } else {
+                return "价值观平衡、适应性强、有多元动机";
+            }
+        }
+
+        // 获取生活表现
+        function getLifeManifestation(topDimensions) {
+            const dimNames = topDimensions.map(d => d[0]);
+            
+            if (dimNames.includes("成就导向") && dimNames.includes("影响力导向")) {
+                return "你可能会主动寻求领导角色，设定具有挑战性的职业目标，并注重建立个人品牌和影响力。";
+            } else if (dimNames.includes("关系导向") && dimNames.includes("集体导向")) {
+                return "你可能会在团队环境中表现出色，重视工作场所的人际和谐，并愿意为支持同事付出额外努力。";
+            } else if (dimNames.includes("稳定导向") && dimNames.includes("实用导向")) {
+                return "你可能会偏好有明确职责和晋升路径的工作，注重财务安全，并在决策时优先考虑实际可行性。";
+            } else if (dimNames.includes("成长导向") && dimNames.includes("适应导向")) {
+                return "你可能会频繁寻求新的学习机会，适应变化的工作环境，并在职业生涯中尝试多种角色。";
+            } else if (dimNames.includes("自主导向") && dimNames.includes("个人导向")) {
+                return "你可能会重视工作灵活性，偏好独立完成项目，并在专业领域追求深度而非广度。";
+            } else {
+                return "你的职业选择可能较为多元，能够根据情境调整优先事项，并在不同环境中找到满足感。";
+            }
+        }
+
+        // 生成维度分析
+        function generateDimensionAnalysis(scores) {
+            const analysisElement = document.getElementById('dimensions-analysis');
+            let analysisHTML = '';
+            
+            // 按分数排序
+            const sortedDimensions = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+            
+            sortedDimensions.forEach(([dimension, score]) => {
+                const maxScore = dimensions[dimension].length;
+                const percentage = (score / maxScore) * 100;
+                const color = getColorForPercentage(percentage);
+                
+                // 确定得分水平
+                let level = "";
+                let levelClass = "";
+                if (percentage >= 80) {
+                    level = "高";
+                    levelClass = "high";
+                } else if (percentage >= 50) {
+                    level = "中";
+                    levelClass = "medium";
+                } else {
+                    level = "低";
+                    levelClass = "low";
+                }
+                
+                analysisHTML += `
+                    <div class="dimension">
+                        <div class="dimension-title">
+                            <span>${dimension} <span class="score-level ${levelClass}">${level}</span></span>
+                            <span>${score}/${maxScore}</span>
+                        </div>
+                        <div class="dimension-bar">
+                            <div class="dimension-value" style="width: ${percentage}%; background-color: ${color};"></div>
+                        </div>
+                        <div class="dimension-explanation">${dimensionExplanations[dimension]}</div>
+                    </div>
+                `;
+            });
+            
+            // 添加得分水平说明
+            analysisHTML += `
+                <div class="score-explanation">
+                    <span>低 (0-49%): 该价值观在当前生活中优先级较低</span>
+                    <span>中 (50-79%): 该价值观对你较为重要</span>
+                    <span>高 (80-100%): 该价值观是你的核心驱动力</span>
+                </div>
+            `;
+            
+            analysisElement.innerHTML = analysisHTML;
+        }
+
+        // 生成一致性分析
+        function generateConsistencyAnalysis(scores) {
+            const consistencyElement = document.getElementById('consistency-analysis');
+            let consistencyHTML = '';
+            
+            // 检查交叉验证问题的一致性
+            let contradictionCount = 0;
+            let contradictionDetails = [];
+            
+            for (const [q1, relatedQuestions] of Object.entries(crossValidationMap)) {
+                for (const q2 of relatedQuestions) {
+                    const q1Index = parseInt(q1) - 1;
+                    const q2Index = q2 - 1;
+                    
+                    if (userAnswers[q1Index] && userAnswers[q2Index]) {
+                        const q1Value = userAnswers[q1Index] === 'a' ? questions[q1Index].a : questions[q1Index].b;
+                        const q2Value = userAnswers[q2Index] === 'a' ? questions[q2Index].a : questions[q2Index].b;
+                        
+                        // 检查是否属于同一维度
+                        let q1Dimension = '';
+                        let q2Dimension = '';
+                        
+                        for (const dimension in dimensions) {
+                            if (dimensions[dimension].includes(q1Value)) q1Dimension = dimension;
+                            if (dimensions[dimension].includes(q2Value)) q2Dimension = dimension;
+                        }
+                        
+                        // 如果两个问题测量相似维度但用户选择了不同方向的答案
+                        if (q1Dimension && q2Dimension && q1Dimension === q2Dimension) {
+                            // 这里简化处理：如果两个问题测量同一维度但用户选择了不同方向的答案
+                            // 实际应用中需要更复杂的逻辑来判断是否矛盾
+                            contradictionCount++;
+                            contradictionDetails.push({
+                                dimension: q1Dimension,
+                                questions: [parseInt(q1), q2],
+                                explanation: getContradictionExplanation(q1Dimension)
+                            });
+                        }
+                    }
+                }
+            }
+            
+            if (contradictionCount === 0) {
+                consistencyHTML = `
+                    <p>你的选择显示出<strong>高度一致性</strong>，表明你对这些核心价值观有着清晰稳定的认知。</p>
+                    <p>从心理学角度看，这种一致性表明你的价值观系统是<strong>整合良好</strong>的，这有助于你在面对人生决策时保持明确的方向感。</p>
+                `;
+            } else {
+                consistencyHTML = `
+                    <p>你的选择显示出<strong>一定程度的不一致性</strong>，发现了 ${contradictionCount} 处潜在的价值观冲突。</p>
+                    <div class="contradiction">
+                        <p><strong>潜在冲突分析：</strong></p>
+                        <p>这可能意味着：</p>
+                        <ul>
+                            <li>你在某些价值观维度上存在内在矛盾</li>
+                            <li>你的选择可能受到当前情境的影响</li>
+                            <li>某些价值观在不同生活领域中的优先级不同</li>
+                        </ul>
+                        <p><strong>具体矛盾点：</strong></p>
+                        ${contradictionDetails.map(detail => `
+                            <p><strong>${detail.dimension}</strong>维度存在不一致（问题${detail.questions[0]}和问题${detail.questions[1]}）</p>
+                            <p>${detail.explanation}</p>
+                        `).join('')}
+                    </div>
+                    <p>这些不一致性不一定表示问题，而是反映了人类价值观系统的复杂性。它们可能源于：</p>
+                    <ul>
+                        <li><strong>情境依赖性：</strong>在不同情境下，同一价值观可能表现出不同的优先级</li>
+                        <li><strong>发展性矛盾：</strong>在个人成长过程中，价值观系统正在调整和重构</li>
+                        <li><strong>文化冲突：</strong>个人价值观与社会期望之间可能存在张力</li>
+                    </ul>
+                `;
+            }
+            
+            consistencyElement.innerHTML = consistencyHTML;
+        }
+
+        // 获取矛盾解释
+        function getContradictionExplanation(dimension) {
+            const explanations = {
+                "成就导向": "你可能同时渴望成功又担心过度竞争影响人际关系，反映了成就需求与社会接纳之间的内在张力。",
+                "关系导向": "你可能重视和谐又希望保持独立，反映了亲密需求与自主需求之间的平衡挑战。",
+                "稳定导向": "你可能渴望安全又不想错过成长机会，反映了稳定需求与变化需求之间的矛盾。",
+                "成长导向": "你可能向往新鲜体验又担忧不确定性，反映了探索需求与安全需求之间的冲突。",
+                "自主导向": "你可能重视独立又需要团队支持，反映了个体化与归属感之间的内在张力。",
+                "影响力导向": "你可能希望影响他人又担心权力带来的责任，反映了影响力需求与自由需求之间的矛盾。"
+            };
+            
+            return explanations[dimension] || "这反映了该价值观维度内部不同方面的优先级冲突，是价值观系统复杂性的正常表现。";
+        }
+
+        // 生成核心优势分析
+        function generateStrengthsAnalysis(scores) {
+            const strengthsElement = document.getElementById('strengths-analysis');
+            
+            // 找出得分最高的三个维度
+            const topDimensions = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+            
+            let strengthsHTML = `
+                <p>基于你的核心价值观，你在以下领域具有天然优势：</p>
+            `;
+            
+            topDimensions.forEach(([dimension, score]) => {
+                strengthsHTML += `
+                    <div class="strength">
+                        <p><strong>${dimension}</strong></p>
+                        <p>${getStrengthDescription(dimension)}</p>
+                        <p><strong>实践建议：</strong> ${getStrengthPractice(dimension)}</p>
+                    </div>
+                `;
+            });
+            
+            strengthsElement.innerHTML = strengthsHTML;
+        }
+
+        // 获取优势描述
+        function getStrengthDescription(dimension) {
+            const descriptions = {
+                "成就导向": "你具有强烈的目标驱动能力，能够自我激励并坚持追求卓越，在竞争环境中表现出色。",
+                "关系导向": "你擅长建立和维护人际关系，具有高度的同理心和团队合作精神，能够创造和谐的工作环境。",
+                "稳定导向": "你可靠、有条理，善于创建和维护有序的系统，在需要持续性和可预测性的角色中表现出色。",
+                "成长导向": "你适应性强，乐于学习新技能和接受新挑战，在快速变化的环境中能够迅速调整和成长。",
+                "自主导向": "你独立自主，善于自我管理，在需要独立工作和自我激励的角色中能够发挥最佳水平。",
+                "影响力导向": "你具有领导潜力，善于影响他人和推动变革，在需要指导和激励他人的角色中表现出色。",
+                "实用导向": "你注重实际结果，善于解决问题和优化流程，在需要务实方法和高效执行的任务中表现出色。",
+                "理念导向": "你具有创造性思维和深度思考能力，善于提出创新理念和复杂问题的解决方案。",
+                "平衡导向": "你善于管理工作与生活平衡，能够保持身心健康并在压力下维持稳定表现。",
+                "完美导向": "你注重细节和品质，具有高标准和持续改进的心态，在需要精确和卓越的工作中表现出色。",
+                "集体导向": "你具有团队精神，愿意为集体目标贡献个人力量，在协作环境中能够促进团队成功。",
+                "个人导向": "你自我驱动，追求专业卓越，在需要深度专业知识和技能发展的领域能够持续精进。",
+                "原则导向": "你具有强烈的道德指南针，能够坚持原则并做出符合价值观的决策，在需要诚信和道德领导力的角色中表现出色。",
+                "适应导向": "你灵活应变，能够根据情况调整策略和方法，在不确定和多变的环境中保持有效性。"
+            };
+            
+            return descriptions[dimension] || "你具有独特的价值观组合，这使你在多种情境下都能找到发挥优势的方式。";
+        }
+
+        // 获取优势实践建议
+        function getStrengthPractice(dimension) {
+            const practices = {
+                "成就导向": "主动设定具有挑战性的目标，定期追踪进展，并寻找能够认可和奖励成就的工作环境。",
+                "关系导向": "积极参与团队活动，主动提供支持给同事，并寻求需要高度协作和人际互动的角色。",
+                "稳定导向": "创建清晰的工作流程和个人系统，优先考虑有长期发展路径的组织，并建立应急计划。",
+                "成长导向": "定期学习新技能，主动寻求新挑战，并选择提供持续学习机会的工作环境。",
+                "自主导向": "协商工作灵活性，寻找允许独立决策的角色，并建立有效的自我管理系统。",
+                "影响力导向": "寻找领导机会，发展沟通和说服技能，并选择能够影响决策和推动变革的角色。",
+                "实用导向": "专注于可衡量的结果，优化工作流程以提高效率，并选择重视实际成果的工作环境。",
+                "理念导向": "留出时间进行创造性思考，参与创新项目，并选择鼓励新想法和深度分析的环境。",
+                "平衡导向": "设定明确的工作与生活界限，培养健康习惯，并选择尊重员工个人时间的企业文化。",
+                "完美导向": "在关键任务上投入额外时间追求卓越，建立质量检查流程，并选择重视细节和品质的角色。",
+                "集体导向": "主动参与团队目标设定，支持同事成功，并选择具有强烈团队文化的组织。",
+                "个人导向": "设定专业发展目标，持续精进专业技能，并选择提供专业成长机会的工作环境。",
+                "原则导向": "在决策中明确考虑道德因素，坚持个人价值观，并选择与个人原则一致的组织文化。",
+                "适应导向": "培养应对变化的积极心态，练习灵活的问题解决方法，并选择需要快速适应的动态环境。"
+            };
+            
+            return practices[dimension] || "寻找能够充分发挥你独特优势的工作环境和项目。";
+        }
+
+        // 生成职业发展方向
+        function generateCareerAnalysis(scores) {
+            const careerElement = document.getElementById('career-analysis');
+            
+            // 找出得分最高的三个维度
+            const topDimensions = Object.entries(scores)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+            
+            let careerHTML = `
+                <p>基于你的核心价值观，以下职业发展方向可能特别适合你：</p>
+            `;
+            
+            const careerPaths = getCareerPaths(topDimensions);
+            
+            careerPaths.forEach(path => {
+                careerHTML += `
+                    <div class="career">
+                        <p><strong>${path.title}</strong></p>
+                        <p>${path.description}</p>
+                        <p><strong>代表性职业：</strong> ${path.examples}</p>
+                        <p><strong>发展建议：</strong> ${path.advice}</p>
+                    </div>
+                `;
+            });
+            
+            careerElement.innerHTML = careerHTML;
+        }
+
+        // 获取职业路径
+        function getCareerPaths(topDimensions) {
+            const dimNames = topDimensions.map(d => d[0]);
+            
+            if (dimNames.includes("成就导向") && dimNames.includes("影响力导向")) {
+                return [
+                    {
+                        title: "管理与领导路径",
+                        description: "你的成就动机和影响力需求使你在领导角色中能够发挥最佳表现。",
+                        examples: "项目经理、团队领导、企业高管、创业者",
+                        advice: "发展战略思维和人员管理技能，寻找能够提供明确晋升路径的组织。"
+                    },
+                    {
+                        title: "专业顾问路径",
+                        description: "你擅长通过专业知识和影响力帮助他人解决问题和达成目标。",
+                        examples: "管理顾问、专业教练、业务发展经理",
+                        advice: "建立专业信誉，发展客户关系管理能力，考虑获取相关认证。"
+                    }
+                ];
+            } else if (dimNames.includes("关系导向") && dimNames.includes("集体导向")) {
+                return [
+                    {
+                        title: "人力资源与组织发展",
+                        description: "你的人际敏感度和团队导向使你在支持他人成长和组织发展中找到满足感。",
+                        examples: "人力资源专员、培训与发展经理、组织发展顾问",
+                        advice: "发展沟通和冲突解决技能，了解组织行为学原理，考虑人力资源认证。"
+                    },
+                    {
+                        title: "教育与辅导路径",
+                        description: "你乐于支持他人成长和发展，在教育和社会服务领域能够发挥天然优势。",
+                        examples: "教师、学校辅导员、社会工作者、团队教练",
+                        advice: "发展教学和辅导技能，了解学习理论，考虑教育或心理学相关资格。"
+                    }
+                ];
+            } else if (dimNames.includes("稳定导向") && dimNames.includes("实用导向")) {
+                return [
+                    {
+                        title: "运营与行政管理",
+                        description: "你的务实态度和对秩序的偏好使你在创建和维护高效运营系统中表现出色。",
+                        examples: "运营经理、行政主管、流程优化专员、财务分析师",
+                        advice: "发展流程管理和数据分析技能，学习相关行业标准和最佳实践。"
+                    },
+                    {
+                        title: "专业技术人员路径",
+                        description: "你在需要精确性和专业知识的领域能够通过系统化方法实现可靠成果。",
+                        examples: "工程师、会计师、IT系统管理员、质量控制专员",
+                        advice: "持续更新专业技术知识，考虑获取行业认证，建立专业网络。"
+                    }
+                ];
+            } else if (dimNames.includes("成长导向") && dimNames.includes("适应导向")) {
+                return [
+                    {
+                        title: "创新与创业路径",
+                        description: "你对变化和学习的渴望使你在动态和创新的环境中能够快速适应和成长。",
+                        examples: "创业者、产品经理、研发专员、创新顾问",
+                        advice: "培养风险承受能力，建立广泛的知识基础，发展跨领域技能。"
+                    },
+                    {
+                        title: "项目与变革管理",
+                        description: "你适应变化的能力使你在领导项目和推动组织变革中能够有效应对不确定性。",
+                        examples: "项目经理、变革管理专员、业务分析师、咨询顾问",
+                        advice: "学习项目管理方法论，发展 stakeholder 管理技能，考虑相关认证。"
+                    }
+                ];
+            } else {
+                return [
+                    {
+                        title: "多元化发展路径",
+                        description: "你的价值观组合较为平衡，使你在多种职业环境中都能找到满足感和成功。",
+                        examples: "跨职能经理、综合顾问、自由职业者、小型企业主",
+                        advice: "保持技能多样性，寻找能够同时满足多个核心价值观的工作环境，定期评估职业满意度。"
+                    }
+                ];
+            }
+        }
+
+        // 生成成长建议
+        function generateGrowthAnalysis(scores) {
+            const growthElement = document.getElementById('growth-analysis');
+            
+            // 找出得分最低的三个维度
+            const bottomDimensions = Object.entries(scores)
+                .sort((a, b) => a[1] - b[1])
+                .slice(0, 3);
+            
+            let growthHTML = `
+                <p>为了促进全面发展和职业满足感，考虑在以下领域投入成长精力：</p>
+            `;
+            
+            bottomDimensions.forEach(([dimension, score]) => {
+                growthHTML += `
+                    <div class="growth">
+                        <p><strong>${dimension}</strong> (当前得分: ${score}/${dimensions[dimension].length})</p>
+                        <p>${getGrowthDescription(dimension)}</p>
+                        <p><strong>发展策略：</strong> ${getGrowthStrategy(dimension)}</p>
+                    </div>
+                `;
+            });
+            
+            growthHTML += `
+                <p><strong>整体发展建议：</strong></p>
+                <ul>
+                    <li><strong>定期自我反思：</strong>每季度评估你的价值观是否在当前工作和生活中得到充分表达</li>
+                    <li><strong>寻求平衡：</strong>尝试在强调核心优势与开发新潜能之间找到适当平衡</li>
+                    <li><strong>寻找价值观一致的环境：</strong>选择与你的核心价值观相匹配的组织文化和工作角色</li>
+                    <li><strong>接受价值观的流动性：</strong>认识到价值观可能随着生活阶段和经验而变化是正常的</li>
+                </ul>
+            `;
+            
+            growthElement.innerHTML = growthHTML;
+        }
+
+        // 获取成长领域描述
+        function getGrowthDescription(dimension) {
+            const descriptions = {
+                "成就导向": "发展适度的成就动机可以帮助你设定明确目标并衡量进展，增强职业满足感。",
+                "关系导向": "培养人际技能可以增强团队合作和网络建设能力，在职业生涯中获得更多支持。",
+                "稳定导向": "建立一定的结构和秩序感可以帮助你管理复杂任务，提高工作效率和可靠性。",
+                "成长导向": "拥抱变化和学习机会可以保持职业新鲜感，适应快速变化的工作环境。",
+                "自主导向": "发展独立决策和自我管理能力可以增加工作灵活性，在项目中承担更多责任。",
+                "影响力导向": "培养领导力和影响力技能可以帮助你推动想法和项目，扩大职业影响范围。",
+                "实用导向": "增强务实解决问题能力可以提高效率，在资源有限的情况下实现最佳结果。",
+                "理念导向": "发展创造性思维和深度分析能力可以帮助你提出创新解决方案，应对复杂挑战。",
+                "平衡导向": "关注工作生活平衡可以防止倦怠，维持长期职业满足感和身心健康。",
+                "完美导向": "培养对细节的关注可以帮助你提高工作质量，在专业领域建立卓越声誉。",
+                "集体导向": "增强团队合作意识可以帮助你在组织环境中更有效地工作，实现更大目标。",
+                "个人导向": "发展专业深度可以帮助你在特定领域建立专长，提高职业竞争力。",
+                "原则导向": "明确个人原则和道德立场可以帮助你在复杂决策中保持方向感，建立信任。",
+                "适应导向": "提高灵活性和适应能力可以帮助你应对不确定性和变化，在动态环境中保持有效性。"
+            };
+            
+            return descriptions[dimension] || "发展这一价值观维度可以帮助你获得更平衡和全面的职业能力。";
+        }
+
+        // 获取成长策略
+        function getGrowthStrategy(dimension) {
+            const strategies = {
+                "成就导向": "从小型可实现的目標开始，逐步增加挑战性；学习目标设定和追踪方法；寻找提供明确反馈的工作环境。",
+                "关系导向": "主动参与团队项目；练习积极倾听和同理心；寻找导师或教练关系；参加社交网络活动。",
+                "稳定导向": "创建个人工作系统和方法；学习时间管理和组织技能；在变化中识别可预测的元素；建立应急计划。",
+                "成长导向": "定期学习新技能；主动寻求新挑战；培养成长心态；寻找提供持续学习机会的环境。",
+                "自主导向": "从小型独立项目开始；练习自我管理和决策；协商工作灵活性；建立个人工作流程。",
+                "影响力导向": "寻找领导小型项目的机会；发展沟通和说服技能；观察有效领导者的行为；寻找导师指导。",
+                "实用导向": "专注于解决问题的实际步骤；学习效率优化方法；培养资源管理技能；寻找重视结果的环境。",
+                "理念导向": "留出创造性思考时间；参与创新项目；阅读广泛领域的内容；寻找鼓励新想法的环境。",
+                "平衡导向": "设定明确的工作生活界限；培养健康习惯；学习压力管理技巧；寻找尊重个人时间的文化。",
+                "完美导向": "在关键任务上投入额外时间；建立质量检查流程；学习区分关键细节和非关键细节；寻找重视品质的环境。",
+                "集体导向": "主动参与团队目标；支持同事成功；了解团队动态；寻找具有合作文化的组织。",
+                "个人导向": "设定专业发展目标；持续学习专业知识；寻找专业社区；考虑获取专业认证。",
+                "原则导向": "明确个人核心价值观；在决策中考虑道德因素；寻找与个人原则一致的组织；发展道德决策框架。",
+                "适应导向": "练习应对变化的心态；学习灵活的问题解决方法；培养应变能力；寻找动态的工作环境。"
+            };
+            
+            return strategies[dimension] || "通过小步骤持续实践，逐步发展这一价值观维度。";
+        }
+
+        // 根据百分比获取颜色
+        function getColorForPercentage(percentage) {
+            if (percentage >= 80) return '#2ecc71'; // 绿色
+            if (percentage >= 60) return '#3498db'; // 蓝色
+            if (percentage >= 40) return '#f39c12'; // 橙色
+            if (percentage >= 20) return '#e67e22'; // 深橙色
+            return '#e74c3c'; // 红色
+        }
+
+        // 重新开始测试
+        function restartTest() {
+            userAnswers = [];
+            currentQuestion = 0;
+            resultsContainer.style.display = 'none';
+            startBtn.style.display = 'block';
+            document.querySelector('.intro').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
